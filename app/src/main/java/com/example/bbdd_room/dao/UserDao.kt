@@ -1,5 +1,6 @@
 package com.example.bbdd_room.dao
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
@@ -7,6 +8,8 @@ import com.example.bbdd_room.bbdd.User
 import kotlinx.coroutines.flow.Flow
 
 // Data Access Object (puente entre la vista y BBDD)
+// Acciones de la base de datos que queremos tener
+@Dao
 interface UserDao {
 
     // Hay que hacerlas suspend para que no paren el programa y se ejecuten de forma asíncrona
@@ -19,7 +22,7 @@ interface UserDao {
 
     // Se pueden ahcer querys personalziadas
     @Query("SELECT * FROM users ORDER BY firstName ASC")
-    fun getUserOrderedByFirstName(user: User): Flow<List<User>>
+    fun getUserOrderedByFirstName(): Flow<List<User>>
 
     @Query("UPDATE users SET firstName = :firstName, lastName = :lastName")
     suspend fun updateUser(firstName: String, lastName: String)
